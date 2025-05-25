@@ -1,4 +1,4 @@
-package br.com.unitins;
+package br.com.unitins.censohgp.resources;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
