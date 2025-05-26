@@ -1,63 +1,29 @@
-# censohgp-quarkus
+# 🏥 Censo HGP - Sistema de Gestão de Pacientes
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+Migração de Sistema **Spring Boot** para **Quarkus** utilizando java 17, desenvolvido para gerenciar informações do censo hospitalar no Hospital Geral de Palmas (HGP), incluindo pacientes, departamentos, procedimentos e controle de acesso de usuários.
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+## 📦 Tecnologias Utilizadas
 
-## Running the application in dev mode
+- Java 17
+- Quarkus 3.22.x
+- Hibernate ORM with Panache 
+- PostgreSQL
+- Jakarta Validation
+- API RESTful
 
-You can run your application in dev mode that enables live coding using:
+## 📁 Estrutura do Projeto
 
-```shell script
-./mvnw quarkus:dev
+```text
+
+br.com.unitins.censohgp
+│
+├── configs # Configurações de segurança e filtros JWT
+├── controllers # Endpoints REST
+├── dtos # DTOs (entrada e saída de dados)
+├── exceptions # Exceções personalizadas
+├── models # Entidades JPA
+├── repositories # Interfaces do Spring Data JPA
+├── services # Regras de negócio
+└── utils # Utilitários
+
 ```
-
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
-
-## Packaging and running the application
-
-The application can be packaged using:
-
-```shell script
-./mvnw package
-```
-
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
-
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
-
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
-```
-
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
-
-## Creating a native executable
-
-You can create a native executable using:
-
-```shell script
-./mvnw package -Dnative
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
-
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/censohgp-quarkus-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
-
-## Provided Code
-
-### REST
-
-Easily start your REST Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
-# CensoHGP-Quarkus
