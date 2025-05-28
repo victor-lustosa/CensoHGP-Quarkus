@@ -1,10 +1,10 @@
 # 🏥 Censo HGP - Sistema de Gestão de Pacientes
 
-Migração de Sistema **Spring Boot** para **Quarkus** utilizando java 17, desenvolvido para gerenciar informações do censo hospitalar no Hospital Geral de Palmas (HGP), incluindo pacientes, departamentos, procedimentos e controle de acesso de usuários.
+Migração de Sistema **Spring Boot** para **Quarkus** utilizando java 21, desenvolvido para gerenciar informações do censo hospitalar no Hospital Geral de Palmas (HGP), incluindo pacientes, departamentos, procedimentos e controle de acesso de usuários.
 
 ## 📦 Tecnologias Utilizadas
 
-- Java 17
+- Java 21
 - Quarkus 3.22.x
 - Hibernate ORM with Panache 
 - PostgreSQL

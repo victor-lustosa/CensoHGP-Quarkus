@@ -13,7 +13,7 @@ import jakarta.ws.rs.core.Response;
 import java.util.List;
 import java.util.Optional;
 
-@Path("/apicensohgp")
+@Path("/procedimentos")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @RequestScoped
@@ -23,28 +23,27 @@ public class ProcedureResource {
     ProcedureRepository procedureRepository;
 
     @GET
-    @Path("/procedimentos")
     public Response findAll() {
         List<ProcedureModel> list = procedureRepository.findAll().list();
         return Response.ok(list).build();
     }
 
     @GET
-    @Path("/procedimentos/ativos")
+    @Path("/ativos")
     public Response findAllActive() {
         List<ProcedureModel> list = procedureRepository.findAllActive();
         return Response.ok(list).build();
     }
 
     @GET
-    @Path("/procedimentos/inativos")
+    @Path("/inativos")
     public Response findAllInactive() {
         List<ProcedureModel> list = procedureRepository.findAllInactive();
         return Response.ok(list).build();
     }
 
     @GET
-    @Path("/procedimento/{idProcedimento}")
+    @Path("/{idProcedimento}")
     public Response findById(@PathParam("idProcedimento") long id) {
         return procedureRepository.findByIdOptional(id)
                 .map(procedure -> Response.ok(procedure).build())
@@ -52,7 +51,6 @@ public class ProcedureResource {
     }
 
     @POST
-    @Path("/procedimento")
     @Transactional
     public Response createProcedure(@Valid ProcedureModel procedure) {
         Optional<ProcedureModel> existingProcedure = procedureRepository.findByName(procedure.getName());
@@ -66,7 +64,6 @@ public class ProcedureResource {
     }
 
     @PUT
-    @Path("/procedimento")
     @Transactional
     public Response updateProcedure(@Valid ProcedureModel procedure) {
         if (procedureRepository.findById(procedure.getId()) == null) {
@@ -82,7 +79,7 @@ public class ProcedureResource {
     }
 
     @PUT
-    @Path("/procedimento/mudar-status")
+    @Path("/mudar-status")
     @Transactional
     public Response updateProcedureStatus(@Valid ProcedureModel procedure) {
         Optional<ProcedureModel> existingProcedure = procedureRepository.findByIdOptional(procedure.getId());
