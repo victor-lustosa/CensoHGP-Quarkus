@@ -5,14 +5,16 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.Objects;
+
 @Entity
-@Table(name = "tb_procedure")
-public class ProcedureModel extends PanacheEntityBase {
+@Table(name = "tb_risk_factor")
+public class RiskFactorModel extends PanacheEntityBase {
 
     @Id
-    @Column(name = "procedure_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "risk_factor_id")
+    private Long id;
 
     @NotNull
     @NotBlank
@@ -22,13 +24,13 @@ public class ProcedureModel extends PanacheEntityBase {
     private String description;
 
     @NotNull
-    @Column(name = "is_active", nullable = false)
-    private Boolean isActive;
+    @Column(name = "is_active")
+    private boolean isActive;
 
-    public ProcedureModel() {
+    public RiskFactorModel() {
     }
 
-    public ProcedureModel(@NotNull @NotBlank String name, String description, @NotNull boolean isActive) {
+    public RiskFactorModel(@NotNull @NotBlank String name, String description, @NotNull boolean isActive) {
         this.name = name;
         this.description = description;
         this.isActive = isActive;
@@ -62,13 +64,25 @@ public class ProcedureModel extends PanacheEntityBase {
         return isActive;
     }
 
-    public void setActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setActive(boolean active) {
+        this.isActive = active;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof RiskFactorModel that)) return false;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     @Override
     public String toString() {
-        return "ProcedureModel{" +
+        return "RiskFactorModel{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +

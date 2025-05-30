@@ -6,11 +6,11 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "tb_procedure")
-public class ProcedureModel extends PanacheEntityBase {
+@Table(name = "tb_incident")
+public class IncidentModel extends PanacheEntityBase {
 
     @Id
-    @Column(name = "procedure_id")
+    @Column(name = "incident_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
@@ -19,26 +19,27 @@ public class ProcedureModel extends PanacheEntityBase {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
+    @Column(name = "description")
     private String description;
 
     @NotNull
     @Column(name = "is_active", nullable = false)
-    private Boolean isActive;
+    private boolean isActive;
 
-    public ProcedureModel() {
+    public IncidentModel() {
     }
 
-    public ProcedureModel(@NotNull @NotBlank String name, String description, @NotNull boolean isActive) {
+    public IncidentModel(@NotNull @NotBlank String name, String description, @NotNull boolean isActive) {
         this.name = name;
         this.description = description;
         this.isActive = isActive;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -62,13 +63,13 @@ public class ProcedureModel extends PanacheEntityBase {
         return isActive;
     }
 
-    public void setActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setActive(boolean active) {
+        this.isActive = active;
     }
 
     @Override
     public String toString() {
-        return "ProcedureModel{" +
+        return "IncidentModel{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +

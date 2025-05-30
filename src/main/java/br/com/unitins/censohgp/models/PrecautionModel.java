@@ -5,12 +5,14 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.Objects;
+
 @Entity
-@Table(name = "tb_procedure")
-public class ProcedureModel extends PanacheEntityBase {
+@Table(name = "TB_PRECAUTION")
+public class PrecautionModel extends PanacheEntityBase {
 
     @Id
-    @Column(name = "procedure_id")
+    @Column(name = "precaution_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
@@ -22,24 +24,16 @@ public class ProcedureModel extends PanacheEntityBase {
     private String description;
 
     @NotNull
-    @Column(name = "is_active", nullable = false)
-    private Boolean isActive;
+    @Column(name = "is_active")
+    private boolean isActive;
 
-    public ProcedureModel() {
+    public PrecautionModel() {
     }
 
-    public ProcedureModel(@NotNull @NotBlank String name, String description, @NotNull boolean isActive) {
+    public PrecautionModel(@NotNull @NotBlank String name, String description, @NotNull boolean isActive) {
         this.name = name;
         this.description = description;
         this.isActive = isActive;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -62,13 +56,25 @@ public class ProcedureModel extends PanacheEntityBase {
         return isActive;
     }
 
-    public void setActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PrecautionModel that)) return false;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     @Override
     public String toString() {
-        return "ProcedureModel{" +
+        return "PrecautionModel{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
