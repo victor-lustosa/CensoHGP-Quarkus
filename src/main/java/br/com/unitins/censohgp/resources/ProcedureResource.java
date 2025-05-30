@@ -2,7 +2,7 @@ package br.com.unitins.censohgp.resources;
 
 import br.com.unitins.censohgp.exceptions.BusinessException;
 import br.com.unitins.censohgp.models.ProcedureModel;
-import br.com.unitins.censohgp.repositories.impl.ProcedureRepository;
+import br.com.unitins.censohgp.repositories.ProcedureRepository;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;

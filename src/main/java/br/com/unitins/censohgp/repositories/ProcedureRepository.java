@@ -1,4 +1,4 @@
-package br.com.unitins.censohgp.repositories.impl;
+package br.com.unitins.censohgp.repositories;
 
 import br.com.unitins.censohgp.models.ProcedureModel;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
@@ -14,15 +14,15 @@ public class ProcedureRepository implements PanacheRepository<ProcedureModel> {
         return find("name", name).firstResultOptional();
     }
 
-    public List<ProcedureModel> findAllOrdered() {
-        return find("ORDER BY name ASC").list();
+    public List<ProcedureModel> findAllByName() {
+        return list("FROM ProcedureModel ORDER BY name ASC");
     }
 
     public List<ProcedureModel> findAllActive() {
-        return find("active = true ORDER BY name ASC").list();
+        return list("FROM ProcedureModel WHERE isActive = true ORDER BY name ASC");
     }
 
     public List<ProcedureModel> findAllInactive() {
-        return find("active = false ORDER BY name ASC").list();
+        return list("FROM ProcedureModel WHERE isActive = false ORDER BY name ASC");
     }
 }
