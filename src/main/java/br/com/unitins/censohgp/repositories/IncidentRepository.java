@@ -14,18 +14,15 @@ public class IncidentRepository implements PanacheRepository<IncidentModel> {
         return find("name", name).firstResultOptional();
     }
 
-    public Optional<List<IncidentModel>> findAllOrderedByName() {
-        List<IncidentModel> result = list("FROM IncidentModel ORDER BY name ASC");
-        return result.isEmpty() ? Optional.empty() : Optional.of(result);
+    public List<IncidentModel> findAllOrderedByName() {
+        return list("FROM IncidentModel ORDER BY name ASC");
     }
 
-    public Optional<List<IncidentModel>> findAllActive() {
-        List<IncidentModel> result = list("FROM IncidentModel WHERE isActive = true ORDER BY name ASC");
-        return result.isEmpty() ? Optional.empty() : Optional.of(result);
+    public List<IncidentModel> findAllActive() {
+        return list("FROM IncidentModel WHERE isActive = true ORDER BY name ASC");
     }
 
-    public Optional<List<IncidentModel>> findAllInactive() {
-        List<IncidentModel> result = list("FROM IncidentModel WHERE isActive = false ORDER BY name ASC");
-        return result.isEmpty() ? Optional.empty() : Optional.of(result);
+    public List<IncidentModel> findAllInactive() {
+        return list("FROM IncidentModel WHERE isActive = false ORDER BY name ASC");
     }
 }

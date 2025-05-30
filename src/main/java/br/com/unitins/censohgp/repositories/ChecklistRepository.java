@@ -15,8 +15,7 @@ public class ChecklistRepository implements PanacheRepository<ChecklistModel> {
                 .firstResultOptional();
     }
 
-    public Optional<List<ChecklistModel>> findByPatientId(long patientId) {
-        List<ChecklistModel> results = list("FROM ChecklistModel WHERE patient.id = ?1", patientId);
-        return results.isEmpty() ? Optional.empty() : Optional.of(results);
+    public List<ChecklistModel> findByPatientId(long patientId) {
+        return list("FROM ChecklistModel WHERE patient.id = ?1", patientId);
     }
 }
