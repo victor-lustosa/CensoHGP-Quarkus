@@ -3,61 +3,57 @@ package br.com.unitins.censohgp.resources;
 import br.com.unitins.censohgp.exceptions.BusinessException;
 import br.com.unitins.censohgp.models.ProcedureModel;
 import br.com.unitins.censohgp.repositories.ProcedureRepository;
-import jakarta.enterprise.context.RequestScoped;
+import io.quarkus.security.PermissionsAllowed;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import java.util.List;
-import java.util.Optional;
 
-@Path("/procedimentos")
-@Consumes(MediaType.APPLICATION_JSON)
+import java.util.List;
+
+@Path("/procedures")
 @Produces(MediaType.APPLICATION_JSON)
-@RequestScoped
+@Consumes(MediaType.APPLICATION_JSON)
+@Tag(name = "Procedimentos", description = "Endpoints para procedimentos")
 public class ProcedureResource {
 
     @Inject
     ProcedureRepository procedureRepository;
 
     @GET
-    public Response findAll() {
-        List<ProcedureModel> list = procedureRepository.findAll().list();
-        return Response.ok(list).build();
+    public List<ProcedureModel> findAll() {
+        return procedureRepository.findAllByName();
     }
 
     @GET
-    @Path("/ativos")
-    public Response findAllActive() {
-        List<ProcedureModel> list = procedureRepository.findAllActive();
-        return Response.ok(list).build();
+    @Path("/actives")
+    public List<ProcedureModel> findAllActive() {
+        return procedureRepository.findAllActive();
     }
 
     @GET
-    @Path("/inativos")
-    public Response findAllInactive() {
-        List<ProcedureModel> list = procedureRepository.findAllInactive();
-        return Response.ok(list).build();
+    @Path("/inactives")
+    public List<ProcedureModel> findAllInactive() {
+        return procedureRepository.findAllInactive();
     }
 
     @GET
-    @Path("/{idProcedimento}")
-    public Response findById(@PathParam("idProcedimento") long id) {
+    @Path("/{id}")
+    public ProcedureModel findById(@PathParam("id") long id) {
         return procedureRepository.findByIdOptional(id)
-                .map(procedure -> Response.ok(procedure).build())
-                .orElseThrow(() -> new NotFoundException("Procedure not found"));
+                .orElseThrow(() -> new NotFoundException("Procedimento não encontrado."));
     }
 
     @POST
     @Transactional
+    @PermissionsAllowed("ROLE_ADMIN")
     public Response createProcedure(@Valid ProcedureModel procedure) {
-        Optional<ProcedureModel> existingProcedure = procedureRepository.findByName(procedure.getName());
-        if (existingProcedure.isPresent()) {
+        if (procedureRepository.findByName(procedure.getName()).isPresent()) {
             throw new BusinessException("Este procedimento já existe no sistema!");
         }
-
         procedure.setActive(true);
         procedureRepository.persist(procedure);
         return Response.status(Response.Status.CREATED).entity(procedure).build();
@@ -65,8 +61,9 @@ public class ProcedureResource {
 
     @PUT
     @Transactional
+    @PermissionsAllowed("ROLE_ADMIN")
     public Response updateProcedure(@Valid ProcedureModel procedure) {
-        if (procedureRepository.findById(procedure.getId()) == null) {
+        if (procedureRepository.findByIdOptional(procedure.getId()).isEmpty()) {
             throw new BadRequestException("Procedimento informado não existe!");
         }
 
@@ -79,21 +76,23 @@ public class ProcedureResource {
     }
 
     @PUT
-    @Path("/mudar-status")
+    @Path("/toggle-status")
     @Transactional
+    @PermissionsAllowed("ROLE_ADMIN")
     public Response updateProcedureStatus(@Valid ProcedureModel procedure) {
-        Optional<ProcedureModel> existingProcedure = procedureRepository.findByIdOptional(procedure.getId());
+        var existingProcedure = procedureRepository.findByIdOptional(procedure.getId());
 
-        if (existingProcedure.isPresent()) {
-            ProcedureModel procedureToUpdate = existingProcedure.get();
-            try {
-                procedureToUpdate.setActive(!procedureToUpdate.isActive());
-                return Response.ok(procedureToUpdate).build();
-            } catch (Exception e) {
-                throw new InternalServerErrorException("Erro interno, contacte o administrador do sistema!");
-            }
-        } else {
+        if (existingProcedure.isEmpty()) {
             throw new BadRequestException("Procedimento informado não existe!");
+        }
+
+        try {
+            ProcedureModel proc = existingProcedure.get();
+            proc.setActive(!proc.isActive());
+            procedureRepository.getEntityManager().merge(proc);
+            return Response.ok(proc).build();
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Erro interno, contacte o administrador do sistema!");
         }
     }
 }

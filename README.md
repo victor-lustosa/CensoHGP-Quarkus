@@ -10,6 +10,7 @@ Migração de Sistema **Spring Boot** para **Quarkus** utilizando java 21, desen
 - PostgreSQL
 - Jakarta Validation
 - API RESTful
+- Swagger/OpenAPI
 
 ## 📁 Estrutura do Projeto
 

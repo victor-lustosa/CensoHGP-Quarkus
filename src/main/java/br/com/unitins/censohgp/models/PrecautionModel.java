@@ -36,6 +36,14 @@ public class PrecautionModel extends PanacheEntityBase {
         this.isActive = isActive;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }

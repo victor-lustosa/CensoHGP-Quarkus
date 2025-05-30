@@ -76,19 +76,19 @@ public class DepartmentModel extends PanacheEntityBase {
         this.description = description;
     }
 
-    public Boolean getIsInternal() {
+    public Boolean isInternal() {
         return isInternal;
     }
 
-    public void setIsInternal(Boolean isInternal) {
+    public void setInternal(Boolean isInternal) {
         this.isInternal = isInternal;
     }
 
-    public Boolean getIsActive() {
+    public Boolean isActive() {
         return isActive;
     }
 
-    public void setIsActive(Boolean isActive) {
+    public void setActive(Boolean isActive) {
         this.isActive = isActive;
     }
 }
