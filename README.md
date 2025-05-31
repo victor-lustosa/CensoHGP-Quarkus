@@ -16,7 +16,7 @@ Migração de Sistema **Spring Boot** para **Quarkus** utilizando java 21, desen
 
 ```text
 
-br.com.unitins.censohgp
+br.com.app.salusdata
 │
 ├── configs # Configurações de segurança e filtros JWT
 ├── controllers # Endpoints REST
