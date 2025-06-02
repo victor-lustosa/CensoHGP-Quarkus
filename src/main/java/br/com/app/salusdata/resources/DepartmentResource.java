@@ -1,4 +1,4 @@
-/*package br.com.app.salusdata.resources;
+package br.com.app.salusdata.resources;
 
 import br.com.app.salusdata.models.DepartmentModel;
 import br.com.app.salusdata.models.dtos.DepartmentDTO;
@@ -122,4 +122,3 @@ public class DepartmentResource {
         return Response.status(Response.Status.CREATED).build();
     }
 }
-*/

@@ -14,7 +14,7 @@ public class PrecautionRepository implements PanacheRepository<PrecautionModel> 
         return find("name", name).firstResultOptional();
     }
 
-    public List<PrecautionModel> findAllOrdered() {
+    public List<PrecautionModel> findAllOrderedByName() {
         return list("FROM PrecautionModel ORDER BY name ASC");
     }
 

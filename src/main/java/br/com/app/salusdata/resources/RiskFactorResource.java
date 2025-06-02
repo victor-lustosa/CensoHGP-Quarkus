@@ -1,4 +1,4 @@
-/*package br.com.app.salusdata.resources;
+package br.com.app.salusdata.resources;
 
 import br.com.app.salusdata.exceptions.BusinessException;
 import br.com.app.salusdata.models.RiskFactorModel;
@@ -68,7 +68,8 @@ public class RiskFactorResource {
             throw new BusinessException("Fator de risco com esse nome já existe no sistema.");
         }
         riskFactor.setActive(true);
-        return Response.status(Response.Status.CREATED).entity(riskFactorRepository.persistAndFlush(riskFactor)).build();
+        riskFactorRepository.persistAndFlush(riskFactor);
+        return Response.status(Response.Status.CREATED).build();
     }
 
     @PUT
@@ -103,4 +104,3 @@ public class RiskFactorResource {
         }
     }
 }
-*/

@@ -1,4 +1,4 @@
-/*package br.com.app.salusdata.resources;
+package br.com.app.salusdata.resources;
 
 import br.com.app.salusdata.exceptions.BusinessException;
 import br.com.app.salusdata.models.PrecautionModel;
@@ -78,4 +78,3 @@ public class PrecautionResource {
         return Response.status(Response.Status.CREATED).entity(existing).build();
     }
 }
-*/

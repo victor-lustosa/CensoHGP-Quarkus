@@ -1,4 +1,4 @@
-/*package br.com.app.salusdata.resources;
+package br.com.app.salusdata.resources;
 
 import br.com.app.salusdata.models.DepartmentModel;
 import br.com.app.salusdata.models.PatientModel;
@@ -61,7 +61,7 @@ public class PatientResource {
         DepartmentModel department = departmentRepository.findByNameUpperCase(name)
                 .orElseThrow(() -> new BadRequestException("Invalid department"));
 
-        return patientRepository.findByDepartment(department.getId());
+        return patientRepository.findByDepartmentId(department.getId());
     }
 
     @POST
@@ -153,4 +153,4 @@ public class PatientResource {
         patientRepository.persist(patient);
         return Response.ok().build();
     }
-}*/
+}

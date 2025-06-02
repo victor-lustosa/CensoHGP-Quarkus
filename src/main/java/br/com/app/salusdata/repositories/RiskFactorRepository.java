@@ -5,12 +5,13 @@ import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.List;
+import java.util.Optional;
 
 @ApplicationScoped
 public class RiskFactorRepository implements PanacheRepository<RiskFactorModel> {
 
-    public RiskFactorModel findByName(String name) {
-        return find("name", name).firstResult();
+    public Optional<RiskFactorModel> findByName(String name) {
+        return find("name", name).firstResultOptional();
     }
 
     public List<RiskFactorModel> findAllOrderedByName() {
